@@ -1,0 +1,11 @@
+<resources xmlns:android="http://schemas.android.com/tools" xmlns:app="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#f8b761</item>
+        <item name="colorPrimaryDark">#f8b761</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
