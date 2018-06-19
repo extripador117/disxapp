@@ -27,6 +27,7 @@ public class activityOraciones extends AppCompatActivity  {
         boton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         boton.setMargins(25,25,25,25);
         botonPalabra.setLayoutParams(boton);
+
         contenedor.addView(botonPalabra);
     }
 }

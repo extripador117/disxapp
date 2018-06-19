@@ -25,7 +25,10 @@
         <activity android:name=".activityPuntajeActualMujer" />
         <activity android:name=".activitySabiasQue" />
         <activity android:name=".activityDiagnostico" />
-        <activity android:name=".activityOraciones"></activity>
+        <activity android:name=".activityOraciones" />
+        <activity android:name=".activityOrtografia" />
+        <activity android:name=".activityPalabras" />
+        <activity android:name=".activityEntendimiento"></activity>
     </application>
 
 </manifest>
