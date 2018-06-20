@@ -41,8 +41,18 @@
     <LinearLayout
         android:id="@+id/contenedor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:orientation="horizontal"></LinearLayout>
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:background="#694be1"
+        />
 </LinearLayout>
