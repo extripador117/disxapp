@@ -20,13 +20,14 @@ public class activityOraciones extends AppCompatActivity  {
         contenedor = (LinearLayout)findViewById(R.id.contenedor);
 
         botonPalabra = new Button(this);
-        botonPalabra.setText("perro");
+        botonPalabra.setText("perrooo");
         botonPalabra.setTextColor(Color.WHITE);
         botonPalabra.setTextSize(18);
         botonPalabra.setBackgroundColor(Color.parseColor("#6543e2"));
         boton = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         boton.setMargins(25,25,25,25);
         botonPalabra.setLayoutParams(boton);
+
         contenedor.addView(botonPalabra);
     }
 }

@@ -38,15 +38,18 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
                 break;
 
             case R.id.opcionOrtografia:
-
+                Activity = new Intent( view.getContext(),activityOrtografia.class);
+                startActivity(Activity);
                 break;
 
             case R.id.opcionPalabras:
-
+                Activity = new Intent( view.getContext(),activityPalabras.class);
+                startActivity(Activity);
                 break;
 
             case R.id.opcionEntendimiento:
-
+                Activity = new Intent( view.getContext(),activityEntendimiento.class);
+                startActivity(Activity);
                 break;
 
             default:
