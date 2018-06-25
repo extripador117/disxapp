@@ -7,27 +7,27 @@
         android:icon="@mipmap/logo"
         android:label="DisxApp"
         android:roundIcon="@mipmap/logo"
-        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:background="@mipmap/background">
+            android:background="@mipmap/background"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activityPuntaje" />
-        <activity android:name=".activityMenuJuegos" />
-        <activity android:name=".activityPuntajeActualHombre" />
-        <activity android:name=".activityPuntajeActualMujer" />
-        <activity android:name=".activitySabiasQue" />
-        <activity android:name=".activityDiagnostico" />
-        <activity android:name=".activityOraciones" />
-        <activity android:name=".activityOrtografia" />
-        <activity android:name=".activityPalabras" />
+        <activity android:name=".activityPuntaje"  android:screenOrientation="portrait"/>
+        <activity android:name=".activityMenuJuegos" android:screenOrientation="portrait" />
+        <activity android:name=".activityPuntajeActualHombre"  android:screenOrientation="portrait" />
+        <activity android:name=".activityPuntajeActualMujer"  android:screenOrientation="portrait"/>
+        <activity android:name=".activitySabiasQue"  android:screenOrientation="portrait" />
+        <activity android:name=".activityDiagnostico"  android:screenOrientation="portrait" />
+        <activity android:name=".activityOraciones"  android:screenOrientation="portrait"/>
+        <activity android:name=".activityOrtografia"  android:screenOrientation="portrait" />
+        <activity android:name=".activityPalabras"  android:screenOrientation="portrait"/>
         <activity android:name=".activityEntendimiento"></activity>
     </application>
 
