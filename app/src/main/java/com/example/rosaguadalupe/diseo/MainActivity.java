@@ -1,7 +1,10 @@
 package com.example.rosaguadalupe.diseo;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,10 +18,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView Diagnostico;
     ImageView sabiasQue;
     Intent Activity;
+    AudioPlay musicaPrincipal;
+    boolean bloqueo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }
+        }
+
+
+
         puntaje=(ImageView)findViewById(R.id.puntaje);
         puntaje.setOnClickListener(this);
 
@@ -30,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         sabiasQue=(ImageView)findViewById(R.id.sabiasQue);
         sabiasQue.setOnClickListener(this);
+
+        musicaPrincipal.playAudio(this,R.raw.mainsong);
 
 
     }
@@ -49,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        musicaPrincipal.stopAudio();
         switch (view.getId()) {
 
             case R.id.juegos:

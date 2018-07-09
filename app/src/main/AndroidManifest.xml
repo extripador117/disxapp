@@ -19,16 +19,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activityPuntaje"  android:screenOrientation="portrait"/>
-        <activity android:name=".activityMenuJuegos" android:screenOrientation="portrait" />
-        <activity android:name=".activityPuntajeActualHombre"  android:screenOrientation="portrait" />
-        <activity android:name=".activityPuntajeActualMujer"  android:screenOrientation="portrait"/>
-        <activity android:name=".activitySabiasQue"  android:screenOrientation="portrait" />
-        <activity android:name=".activityDiagnostico"  android:screenOrientation="portrait" />
-        <activity android:name=".activityOraciones"  android:screenOrientation="portrait"/>
-        <activity android:name=".activityOrtografia"  android:screenOrientation="portrait" />
-        <activity android:name=".activityPalabras"  android:screenOrientation="portrait"/>
-        <activity android:name=".activityEntendimiento"></activity>
+        <activity
+            android:name=".activityPuntaje"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityMenuJuegos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityPuntajeActualHombre"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityPuntajeActualMujer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitySabiasQue"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityDiagnostico"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityOraciones"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityOrtografia"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityPalabras"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activityEntendimiento" />
+        <activity android:name=".activityBloqueo"></activity>
     </application>
 
 </manifest>

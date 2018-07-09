@@ -11,9 +11,13 @@ public class dbConexion extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table IF NOT EXISTS puntajes(id integer primary key, fecha date, puntos integer)");
+        db.execSQL("create table IF NOT EXISTS puntajeGeneral(id integer primary key, fecha date, puntos integer)");
 
-        db.execSQL("create table IF NOT EXISTS bloqueo(status boolean primary key default 0)");
+        db.execSQL("create table IF NOT EXISTS puntajeLectura(id integer primary key,  fecha date, puntos integer)");
+
+        db.execSQL("create table IF NOT EXISTS puntajePractica(id integer primary key,  fecha date, puntos integer)");
+
+        db.execSQL("create table IF NOT EXISTS bloqueo(id integer primary key , status integer)");
 
     }
 

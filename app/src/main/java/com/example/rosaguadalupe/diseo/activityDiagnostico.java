@@ -1,6 +1,7 @@
 package com.example.rosaguadalupe.diseo;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -19,16 +20,30 @@ public class activityDiagnostico extends AppCompatActivity {
     TableRow columna;
     TextView fechaDatos;
     TextView puntajeDatos;
-
+    boolean bloqueo;
+    dbConexion mod;
+    SQLiteDatabase db;
+    Cursor puntos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnostico);
         tabla = (TableLayout) findViewById(R.id.tablaDiagnostico);
+         mod = new dbConexion(this, "dbDisxapp", null, 1);
+         db = mod.getWritableDatabase();
+        puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+              Intent  Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }
+        }
 
-        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+         mod = new dbConexion(this, "dbDisxapp", null, 1);
         SQLiteDatabase db = mod.getWritableDatabase();
-        Cursor puntos = db.rawQuery("SELECT  puntos,fecha FROM puntajes", null);
+         puntos = db.rawQuery("SELECT  puntos,fecha FROM puntajeGeneral", null);
         while (puntos.moveToNext()){
             columna = new TableRow(this);
             columna.setId(View.generateViewId());
