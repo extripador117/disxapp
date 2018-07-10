@@ -15,6 +15,7 @@ public class activityPuntaje extends AppCompatActivity {
     int PuntajeTotalLectura,PuntajeTotalPractica;
     boolean bloqueo;
     Intent Activity;
+    AudioPlay MusicaPrincipal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,30 @@ public class activityPuntaje extends AppCompatActivity {
         }
         else{
             PuntosPractica.setText("0");
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                MusicaPrincipal.stopAudio();
+                Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                MusicaPrincipal.stopAudio();
+
+                Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            MusicaPrincipal.stopAudio();
+            Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
         }
     }
 }

@@ -10,9 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activitySplash"
             android:background="@mipmap/background"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +49,10 @@
             android:name=".activityPalabras"
             android:screenOrientation="portrait" />
         <activity android:name=".activityEntendimiento" />
-        <activity android:name=".activityBloqueo"></activity>
+        <activity android:name=".activityBloqueo" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

@@ -62,10 +62,11 @@ public class activityBloqueo extends AppCompatActivity implements View.OnClickLi
             SQLiteDatabase bd = conexion.getWritableDatabase();
             ContentValues estadoBloqueo = new ContentValues();
             Cursor puntos;
-            puntos = bd.rawQuery("SELECT  * FROM bloqueo", null);
-            musicaDeJuego.stopAudio();
+            puntos = bd.rawQuery("SELECT * FROM bloqueo", null);
+            puntos.moveToLast();
             estadoBloqueo.put("status",0);
             bd.update("bloqueo",estadoBloqueo,"id =" + puntos.getInt(0),null);
+            musicaDeJuego.stopAudio();
             Intent Activity = new Intent( this,activityMenuJuegos.class);
             startActivity(Activity);
         }else{

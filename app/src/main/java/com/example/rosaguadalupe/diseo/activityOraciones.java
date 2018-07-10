@@ -28,13 +28,14 @@ public class activityOraciones extends AppCompatActivity  {
     TextView CampoOraciones,oracionAEscribir;
     GridView contenedor;
     LinearLayout.LayoutParams boton;
-    String[] Oraciones =new String[]{"EL leon es grande", "I love you Itzel", "hola que hace maestra", "hay muchas Camionetas"};
+    String[] Oraciones =new String[]{"EL leon es grande", "Diego escribe un poema", "Víctor comió pastel","Jef es muy jugueton","mi mama me ama","las pilas tienen mucha energia"};
     String palabraPresionada;
     ArrayList<String> PalabraPorPalabra = new ArrayList<String>();
     int idOracionRandom,puntaje;
     Calendar calendar;
     SimpleDateFormat mdformat;
     String strDate;
+    AudioPlay musicaPrincipal;
     boolean bloqueo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +170,29 @@ public class activityOraciones extends AppCompatActivity  {
                 CampoOraciones.setText("");
                 Toast.makeText(this, "Puedes mejorar n.n!", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                musicaPrincipal.stopAudio();
+                Intent Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                musicaPrincipal.stopAudio();
+                Intent Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            musicaPrincipal.stopAudio();
+            Intent Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
         }
     }
 }

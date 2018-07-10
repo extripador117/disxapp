@@ -78,5 +78,29 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
                 break;
         }
     }
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                musicaDeJuego.stopAudio();
+                Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                musicaDeJuego.stopAudio();
 
+                Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            musicaDeJuego.stopAudio();
+
+            Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
+        }
+    }
 }

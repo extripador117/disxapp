@@ -20,14 +20,15 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
     TextView Pregunta,Oracion;
     Button  VerificarRespuesta;
     EditText Respuesta;
-    String[] ArrayOracion =new String[]{"El animal mas grande es el leon", "Hace 5 años tenia 10 años"};
-    String[] ArrayPregunta = new String[]{"¿Cual es el animal mas fuerte?","¿Cuantos años tengo ahora?"};
-    String[] ArrayRespuestas = new String[]{"leon","15"};
+    String[] ArrayOracion =new String[]{"El animal mas grande es el leon", "Hace 5 años tenia 10 años","Pedro tiene un gato de color negro","Víctor comió pastel en el cumpleaños de su amigo Carlos","Diego escribe un poema en su cuaderno amarillo"};
+    String[] ArrayPregunta = new String[]{"¿Cual es el animal mas fuerte?","¿Cuantos años tengo ahora?","De que color es el gato  de Pedro?","Que comió Víctor en el cumpleaños de su amigo Carlos?","Que escribe Diego?"};
+    String[] ArrayRespuestas = new String[]{"leon","15","negro","pastel" ,"poema"};
     Calendar calendar;
     SimpleDateFormat mdformat;
     String strDate;
     int idRespuesta,puntaje;
     boolean bloqueo;
+    AudioPlay musicaPrincipal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +89,35 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
                 else{
                     bd.insert("puntajeLectura", null, newPuntuacion);
                 }
+                Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
+                startActivity(Activity);
             }
             else{
                 Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
                 Respuesta.setText("");
             }
-
-            Intent Activity = new Intent( this,activityPuntajeActualMujer.class);
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                musicaPrincipal.stopAudio();
+                Intent   Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                musicaPrincipal.stopAudio();
+                Intent Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            musicaPrincipal.stopAudio();
+            Intent Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);
         }
     }

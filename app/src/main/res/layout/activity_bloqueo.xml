@@ -116,7 +116,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Tus padres tienes la respuesta"
+        android:text="Tus padres tienen la respuesta"
         android:textColor="#000"
         android:textSize="20sp"
         android:textStyle="bold"

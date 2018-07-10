@@ -24,6 +24,7 @@ public class activityDiagnostico extends AppCompatActivity {
     dbConexion mod;
     SQLiteDatabase db;
     Cursor puntos;
+    AudioPlay musicaPrincipal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +70,29 @@ public class activityDiagnostico extends AppCompatActivity {
             columna.addView(puntajeDatos);
             tabla.addView(columna, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
         }
-
-
-
-
-
-
-
     }
-
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                musicaPrincipal.stopAudio();
+               Intent Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                musicaPrincipal.stopAudio();
+                Intent Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            musicaPrincipal.stopAudio();
+            Intent Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
+        }
+    }
 
 }

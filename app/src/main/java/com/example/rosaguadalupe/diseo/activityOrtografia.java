@@ -16,13 +16,14 @@ import java.util.Random;
 
 public class activityOrtografia extends AppCompatActivity  implements View.OnClickListener{
     Button buttonPalabra1,buttonPalabra2;
-    String[] PalabraCorrecta=new String[]{"abecedario", "banda","vaca","vuelo","cuaderno"};
-    String[] PalabraIncorrecta = new String[]{"Avecedario", "vanda","baca","buelo","cuaberno"};
+    String[] PalabraCorrecta=new String[]{"Bravo", "banda","vaca","vuelo","cuaderno"};
+    String[] PalabraIncorrecta = new String[]{"Brado", "vanda","baca","buelo","cuaberno"};
     int PalabrasRandom,puntaje;
     Calendar calendar;
     SimpleDateFormat mdformat;
     String strDate;
     boolean bloqueo;
+    AudioPlay musicaPrincipal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,14 +92,35 @@ public class activityOrtografia extends AppCompatActivity  implements View.OnCli
                 else{
                     bd.insert("puntajeLectura", null, newPuntuacion);
                 }
+                Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
+                startActivity(Activity);
             }
             else{
                 Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
 
             }
-
-        Intent Activity = new Intent( this,activityPuntajeActualMujer.class);
-        startActivity(Activity);
-
+    }
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                musicaPrincipal.stopAudio();
+                Intent Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                musicaPrincipal.stopAudio();
+                Intent Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            musicaPrincipal.stopAudio();
+            Intent Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
+        }
     }
 }

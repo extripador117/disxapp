@@ -33,12 +33,12 @@ public class activityPalabras extends AppCompatActivity {
     TextView Campo,PalabraAEscribir;
     String textoPresionado;
 
-    String[] Palabras =new String[]{"Perro", "Disco", "Pecera", "Camioneta"};
+    String[] Palabras =new String[]{"Nieve", "Tienda", "Cartel", "Negro","Idioma","Nariz","Planta"};
     ArrayList<String> letraPorLetra = new ArrayList<String>();
     Calendar calendar;
     SimpleDateFormat mdformat;
     String strDate;
-
+    AudioPlay MusicaPrincipal;
     int id=1;
     int idPalabraRandom,puntaje;
 
@@ -170,6 +170,29 @@ public class activityPalabras extends AppCompatActivity {
                 Campo.setText("");
                 Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                MusicaPrincipal.stopAudio();
+              Intent  Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                MusicaPrincipal.stopAudio();
+               Intent Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            MusicaPrincipal.stopAudio();
+           Intent Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
         }
     }
 }
