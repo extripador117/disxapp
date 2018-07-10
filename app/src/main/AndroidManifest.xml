@@ -5,30 +5,54 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
-        android:label="DisxApp"
+        android:label="Dixapp"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activitySplash"
             android:background="@mipmap/background"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activityPuntaje"  android:screenOrientation="portrait"/>
-        <activity android:name=".activityMenuJuegos" android:screenOrientation="portrait" />
-        <activity android:name=".activityPuntajeActualHombre"  android:screenOrientation="portrait" />
-        <activity android:name=".activityPuntajeActualMujer"  android:screenOrientation="portrait"/>
-        <activity android:name=".activitySabiasQue"  android:screenOrientation="portrait" />
-        <activity android:name=".activityDiagnostico"  android:screenOrientation="portrait" />
-        <activity android:name=".activityOraciones"  android:screenOrientation="portrait"/>
-        <activity android:name=".activityOrtografia"  android:screenOrientation="portrait" />
-        <activity android:name=".activityPalabras"  android:screenOrientation="portrait"/>
-        <activity android:name=".activityEntendimiento"></activity>
+        <activity
+            android:name=".activityPuntaje"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityMenuJuegos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityPuntajeActualHombre"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityPuntajeActualMujer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitySabiasQue"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityDiagnostico"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityOraciones"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityOrtografia"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activityPalabras"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activityEntendimiento" />
+        <activity android:name=".activityBloqueo" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

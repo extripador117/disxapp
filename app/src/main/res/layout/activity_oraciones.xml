@@ -42,11 +42,10 @@
         android:id="@+id/oracionAEscribir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
         android:gravity="center"
+        android:text=""
         android:textColor="#ffffff"
-        android:textSize="19dp"
-        />
+        android:textSize="19dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -71,7 +70,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/CampoOraciones"
+        android:id="@+id/oracion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#694be1"

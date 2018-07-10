@@ -48,7 +48,7 @@
         android:layout_marginTop="8dp"
         android:background="@mipmap/ortografia_background"
         android:gravity="center"
-        android:text="Ortografia"
+        android:text="Ortografía"
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

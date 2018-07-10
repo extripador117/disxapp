@@ -1,7 +1,9 @@
 package com.example.rosaguadalupe.diseo;
 
 import android.content.Intent;
-import android.media.Image;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,10 +17,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView Diagnostico;
     ImageView sabiasQue;
     Intent Activity;
+    AudioPlay musicaPrincipal;
+    boolean bloqueo;
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }
+        }
+
+
+
         puntaje=(ImageView)findViewById(R.id.puntaje);
         puntaje.setOnClickListener(this);
 
@@ -30,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         sabiasQue=(ImageView)findViewById(R.id.sabiasQue);
         sabiasQue.setOnClickListener(this);
+
+        musicaPrincipal.playAudio(this,R.raw.mainsong);
 
 
     }
@@ -49,11 +73,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
 
             case R.id.juegos:
                 Activity = new Intent( view.getContext(),activityMenuJuegos.class);
                 startActivity(Activity);
+                musicaPrincipal.stopAudio();
                 break;
 
             case R.id.puntaje:
@@ -75,4 +101,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        SQLiteDatabase db = mod.getWritableDatabase();
+        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
+        if(puntos.getCount() > 0){
+            puntos.moveToLast();
+            bloqueo = puntos.getInt(1)!=0;
+            if(bloqueo){
+                Activity = new Intent( this,activityBloqueo.class);
+                startActivity(Activity);
+            }else{
+                musicaPrincipal.stopAudio();
+                musicaPrincipal.playAudio(this,R.raw.mainsong);
+                Activity = new Intent( this,MainActivity.class);
+                startActivity(Activity);
+            }
+        }else{
+            Activity = new Intent( this,MainActivity.class);
+            startActivity(Activity);
+        }
+    }
 }
+

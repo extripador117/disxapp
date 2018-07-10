@@ -46,7 +46,7 @@
             android:layout_marginTop="0dp"
             android:background="@mipmap/sabias_que_titulo_background"
             android:gravity="center"
-            android:text="Ortografia"
+            android:text="Ortografía"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
