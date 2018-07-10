@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class activityBloqueo extends AppCompatActivity implements View.OnClickListener{
     String[] Pregunta = new String[]{"Como se llama la aplicacion?","De que color es el cielo?"};
-    String[] Password = new String[]{"disxapp" ,"azul"};
+    String[] Password = new String[]{"Dixapp" ,"azul"};
     TextView preguntaBloqueo;
     EditText Respuesta;
     AudioPlay musicaDeJuego;
