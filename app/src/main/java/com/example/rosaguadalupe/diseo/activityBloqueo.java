@@ -22,6 +22,7 @@ public class activityBloqueo extends AppCompatActivity implements View.OnClickLi
     AudioPlay musicaDeJuego;
     int palabraRandom;
     Intent Acitvity;
+    boolean bloqueo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,5 +74,9 @@ public class activityBloqueo extends AppCompatActivity implements View.OnClickLi
             Respuesta.setText("");
             Toast.makeText(this, "Intetalo otra vez!", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    public void onBackPressed(){
+
     }
 }

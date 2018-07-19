@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,11 +29,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class activityPalabras extends AppCompatActivity {
+public class activityPalabras extends AppCompatActivity  implements View.OnClickListener{
     GridView contenedorLetras;
     TextView Campo,PalabraAEscribir;
     String textoPresionado;
-
+    ImageView flechaRetroseso;
     String[] Palabras =new String[]{"Nieve", "Tienda", "Cartel", "Negro","Idioma","Nariz","Planta"};
     ArrayList<String> letraPorLetra = new ArrayList<String>();
     Calendar calendar;
@@ -40,6 +41,7 @@ public class activityPalabras extends AppCompatActivity {
     String strDate;
     AudioPlay MusicaPrincipal;
     int id=1;
+    int vecesJugadas=1;
     int idPalabraRandom,puntaje;
 
     boolean bloqueo;
@@ -49,6 +51,10 @@ public class activityPalabras extends AppCompatActivity {
         setContentView(R.layout.activity_palabras);
         contenedorLetras=(GridView)findViewById(R.id.contenedorLetras);
         Campo = (TextView)findViewById(R.id.campoPalabras);
+        flechaRetroseso= (ImageView)findViewById(R.id.flechaRetroseso);
+        flechaRetroseso.setOnClickListener(this);
+
+        /* valida si el bloqueo esta activo no, en caso de estar habilitado el bloqueo redireccionara a la ventana de bloqueo*/
         dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
         SQLiteDatabase db = mod.getWritableDatabase();
         Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
@@ -61,30 +67,18 @@ public class activityPalabras extends AppCompatActivity {
             }
         }
 
-        idPalabraRandom=selectPalabraAEscribir();
+
         calendar = Calendar.getInstance();
         mdformat = new SimpleDateFormat("yyyy / MM / dd ");
         strDate =  mdformat.format(calendar.getTime());
-        PalabraALetras(idPalabraRandom);
-
-        contenedorLetras.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,letraPorLetra){
-            public View getView(int position, View convertView, ViewGroup parent) {
-                    View view = super.getView(position, convertView, parent);
-                    TextView EstiloText = (TextView) view;
-                    EstiloText.setTextColor(Color.BLACK);
-                    EstiloText.setText(letraPorLetra.get(position));
-                    EstiloText.setGravity(Gravity.CENTER);
-                    EstiloText.setTextSize(24);
-                return EstiloText;
-            }
-        });
+        newGame();
         contenedorLetras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 textoPresionado = adapterView.getItemAtPosition(i).toString();
                 Campo.setText(Campo.getText().toString()+ textoPresionado);
-              palabraTerminada();
-            }
+                palabraTerminada();
+                }
         });
 
     }
@@ -121,7 +115,7 @@ public class activityPalabras extends AppCompatActivity {
         if(Campo.length() == PalabraAEscribir.length()){
 
             if(Campo.getText().toString().equals(PalabraAEscribir.getText().toString())){
-                puntaje+=5;
+                puntaje=5;
                 dbConexion conexion = new dbConexion(this,"dbDisxapp",null,1);
                 SQLiteDatabase bd = conexion.getWritableDatabase();
                 ContentValues newPuntuacion = new ContentValues();
@@ -153,7 +147,10 @@ public class activityPalabras extends AppCompatActivity {
                         ContentValues updatePuntuacion = new ContentValues();
                         updatePuntuacion.put("puntos",puntos.getInt(2)+puntaje);
                         bd.update("puntajeGeneral",updatePuntuacion,"id =" + puntos.getInt(0),null);
-
+                        vecesJugadas+=1;
+                        Campo.setText("");
+                        newGame();
+                        Toast.makeText(this, "Muy bien! n.n", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         bd.insert("puntajeGeneral", null, newPuntuacion);
@@ -163,12 +160,16 @@ public class activityPalabras extends AppCompatActivity {
                     bd.insert("puntajeGeneral", null, newPuntuacion);
                 }
 
-                Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
-                startActivity(Activity);
             }
             else{
+                vecesJugadas+=1;
                 Campo.setText("");
+                newGame();
                 Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
+            }
+            if (vecesJugadas == 5){
+                Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
+                startActivity(Activity);
             }
         }
     }
@@ -193,6 +194,35 @@ public class activityPalabras extends AppCompatActivity {
             MusicaPrincipal.stopAudio();
            Intent Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);
+        }
+    }
+
+    public void newGame(){
+        letraPorLetra.clear();
+        idPalabraRandom=selectPalabraAEscribir();
+        PalabraALetras(idPalabraRandom);
+        contenedorLetras.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,letraPorLetra){
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView EstiloText = (TextView) view;
+                EstiloText.setTextColor(Color.BLACK);
+                EstiloText.setText(letraPorLetra.get(position));
+                EstiloText.setGravity(Gravity.CENTER);
+                EstiloText.setTextSize(24);
+                return EstiloText;
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.flechaRetroseso:
+                String palabra=Campo.getText().toString();
+                if(palabra.length()> 0){
+                    Campo.setText(palabra.substring(0,palabra.length()-1));
+                }
+                break;
         }
     }
 }
