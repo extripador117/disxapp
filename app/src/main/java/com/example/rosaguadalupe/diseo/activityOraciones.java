@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,15 +24,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class activityOraciones extends AppCompatActivity  {
+public class activityOraciones extends AppCompatActivity implements View.OnClickListener {
 
     TextView CampoOraciones,oracionAEscribir;
     GridView contenedor;
+    ImageView flechaRetrocesoOracion;
     LinearLayout.LayoutParams boton;
     String[] Oraciones =new String[]{"EL leon es grande", "Diego escribe un poema", "Víctor comió pastel","Jef es muy jugueton","mi mama me ama","las pilas tienen mucha energia"};
     String palabraPresionada;
     ArrayList<String> PalabraPorPalabra = new ArrayList<String>();
     int idOracionRandom,puntaje;
+    int vecesJugadas=1;
     Calendar calendar;
     SimpleDateFormat mdformat;
     String strDate;
@@ -57,23 +60,13 @@ public class activityOraciones extends AppCompatActivity  {
 
         contenedor = (GridView) findViewById(R.id.contenedorOraciones);
         CampoOraciones = (TextView)findViewById(R.id.oracion);
-        idOracionRandom = selectOracionRandom();
+        flechaRetrocesoOracion = (ImageView)findViewById(R.id.flechaRetrocesoOracion);
+        flechaRetrocesoOracion.setOnClickListener(this);
         calendar = Calendar.getInstance();
         mdformat = new SimpleDateFormat("yyyy / MM / dd ");
         strDate =  mdformat.format(calendar.getTime());
-        oracionAPalabras(idOracionRandom);
+        newGame();
 
-        contenedor.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,PalabraPorPalabra){
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView EstiloText = (TextView) view;
-                EstiloText.setTextColor(Color.BLACK);
-                EstiloText.setText(PalabraPorPalabra.get(position));
-                EstiloText.setGravity(Gravity.CENTER);
-                EstiloText.setTextSize(20);
-                return EstiloText;
-            }
-        });
         contenedor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -118,7 +111,7 @@ public class activityOraciones extends AppCompatActivity  {
 
 
             if (oracionAEscribir.getText().toString().equals(result)){
-                    puntaje+=5;
+                    puntaje=5;
                     dbConexion conexion = new dbConexion(this,"dbDisxapp",null,1);
                     SQLiteDatabase bd = conexion.getWritableDatabase();
                     ContentValues newPuntuacion = new ContentValues();
@@ -150,7 +143,10 @@ public class activityOraciones extends AppCompatActivity  {
                                    ContentValues updatePuntuacion = new ContentValues();
                                    updatePuntuacion.put("puntos",puntos.getInt(2)+puntaje);
                                     bd.update("puntajeGeneral",updatePuntuacion,"id =" + puntos.getInt(0),null);
-
+                                    vecesJugadas+=1;
+                                    CampoOraciones.setText("");
+                                    newGame();
+                                    Toast.makeText(this, "Muy bien! n.n", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 bd.insert("puntajeGeneral", null, newPuntuacion);
@@ -160,16 +156,17 @@ public class activityOraciones extends AppCompatActivity  {
                         bd.insert("puntajeGeneral", null, newPuntuacion);
                     }
 
-
-
-                    Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
-                    startActivity(Activity);
             }else{
-                Log.d("oracion",oracionAEscribir.getText().toString());
-                Log.d("oracion",CampoOraciones.getText().toString().substring(1,posicionFinal));
+                vecesJugadas+=1;
                 CampoOraciones.setText("");
+                newGame();
                 Toast.makeText(this, "Puedes mejorar n.n!", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        if (vecesJugadas == 5){
+            Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
+            startActivity(Activity);
         }
     }
     @Override
@@ -193,6 +190,35 @@ public class activityOraciones extends AppCompatActivity  {
             musicaPrincipal.stopAudio();
             Intent Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);
+        }
+    }
+    public void newGame(){
+        PalabraPorPalabra.clear();
+        idOracionRandom = selectOracionRandom();
+        oracionAPalabras(idOracionRandom);
+        contenedor.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,PalabraPorPalabra){
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView EstiloText = (TextView) view;
+                EstiloText.setTextColor(Color.BLACK);
+                EstiloText.setText(PalabraPorPalabra.get(position));
+                EstiloText.setGravity(Gravity.CENTER);
+                EstiloText.setTextSize(20);
+                return EstiloText;
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.flechaRetrocesoOracion:
+                String palabra=  CampoOraciones.getText().toString();
+                if(palabra.length()> 0){
+                    CampoOraciones.setText(palabra.substring(0,palabra.length()-1));
+                }
+                break;
         }
     }
 }

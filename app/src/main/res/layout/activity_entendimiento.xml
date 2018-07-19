@@ -115,7 +115,7 @@
         android:background="@mipmap/entendimiento_background"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="Checa Tu respuesta"
+        android:text="Prueba tu respuesta"
         android:textColor="#000"
         android:textSize="20sp"
         android:textStyle="bold"

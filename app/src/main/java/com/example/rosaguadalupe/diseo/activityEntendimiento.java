@@ -27,6 +27,7 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
     SimpleDateFormat mdformat;
     String strDate;
     int idRespuesta,puntaje;
+    int  vecesJugadas=1;
     boolean bloqueo;
     AudioPlay musicaPrincipal;
     @Override
@@ -68,7 +69,7 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
     public void onClick(View view) {
         if(Respuesta.getText().length() == ArrayRespuestas[idRespuesta].length()){
             if(Respuesta.getText().toString().equals(ArrayRespuestas[idRespuesta])){
-                puntaje+=5;
+                puntaje=5;
                 dbConexion conexion = new dbConexion(this,"dbDisxapp",null,1);
                 SQLiteDatabase bd = conexion.getWritableDatabase();
                 ContentValues newPuntuacion = new ContentValues();
@@ -82,6 +83,10 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
                         ContentValues updatePuntuacion = new ContentValues();
                         updatePuntuacion.put("puntos",puntos.getInt(2)+puntaje);
                         bd.update("puntajeLectura",updatePuntuacion,"id =" + puntos.getInt(0),null);
+                        vecesJugadas+=1;
+                        Respuesta.setText("");
+                        selectOracionRandom();
+                        Toast.makeText(this, "Muy bien! n.n", Toast.LENGTH_SHORT).show();
                     }else{
                         bd.insert("puntajeLectura", null, newPuntuacion);
                     }
@@ -89,13 +94,41 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
                 else{
                     bd.insert("puntajeLectura", null, newPuntuacion);
                 }
-                Intent Activity = new Intent( this,activityPuntajeActualHombre.class);
-                startActivity(Activity);
+
+                SQLiteDatabase bd2 = conexion.getWritableDatabase();
+                puntos = bd2.rawQuery("SELECT  * FROM puntajeGeneral", null);
+                if(puntos.getCount() > 0){
+                    puntos.moveToLast();
+                    if(strDate.equals(puntos.getString(1))){
+                        ContentValues updatePuntuacion = new ContentValues();
+                        updatePuntuacion.put("puntos",puntos.getInt(2)+puntaje);
+                        bd.update("puntajeGeneral",updatePuntuacion,"id =" + puntos.getInt(0),null);
+                    }
+                    else{
+                        bd.insert("puntajeGeneral", null, newPuntuacion);
+                    }
+                }
+                else{
+                    bd.insert("puntajeGeneral", null, newPuntuacion);
+                }
             }
             else{
-                Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
+                vecesJugadas+=1;
                 Respuesta.setText("");
+                selectOracionRandom();
+                Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
+
             }
+        } else{
+            vecesJugadas+=1;
+            Respuesta.setText("");
+            selectOracionRandom();
+            Toast.makeText(this, "Intentalo de nuevo! n.n", Toast.LENGTH_SHORT).show();
+
+        }
+        if (vecesJugadas == 5){
+            Intent Activity = new Intent( this,activityPuntajeActualMujer.class);
+            startActivity(Activity);
         }
     }
     @Override

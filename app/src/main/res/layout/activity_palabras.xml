@@ -81,17 +81,31 @@
     </ScrollView>
 
 
-    <TextView
-        android:id="@+id/campoPalabras"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="333dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#5f3ee6"
-        android:gravity="center_horizontal"
-        android:text=""
-        android:textColor="#ffffff"
-        android:textSize="24dp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/campoPalabras"
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="#5f3ee6"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="24dp" />
+
+        <ImageView
+            android:id="@+id/flechaRetroseso"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/flecharetroceso" />
+    </LinearLayout>
 </LinearLayout>

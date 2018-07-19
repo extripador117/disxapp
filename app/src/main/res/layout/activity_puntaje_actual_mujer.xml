@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.421" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/puntajeMujer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -101,14 +101,14 @@
         app:layout_constraintVertical_bias="0.597" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/RegresarPuntajeM"
         android:layout_width="0dp"
         android:layout_height="43dp"
         android:layout_marginTop="8dp"
         android:alpha="0.5"
         android:background="@mipmap/entendimiento_background"
         android:gravity="center"
-        android:text="Regresar"
+        android:text="Continuar"
         android:textColor="#000"
         android:textSize="20sp"
         android:textStyle="bold"
