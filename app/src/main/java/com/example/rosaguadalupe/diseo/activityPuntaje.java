@@ -5,13 +5,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-public class activityPuntaje extends AppCompatActivity {
+public class activityPuntaje extends AppCompatActivity implements View.OnClickListener{
     Cursor cursorPuntosPractica,cursorPuntosLectura;
     dbConexion conexion;
     SQLiteDatabase bd;
-    TextView PuntosPractica,PuntosLectura;
+    TextView PuntosPractica,PuntosLectura,regresarPuntaje;
     int PuntajeTotalLectura,PuntajeTotalPractica;
     boolean bloqueo;
     Intent Activity;
@@ -33,7 +34,8 @@ public class activityPuntaje extends AppCompatActivity {
         }
 
 
-
+        regresarPuntaje=(TextView)findViewById(R.id.regresarPuntaje);
+        regresarPuntaje.setOnClickListener(this);
         PuntosPractica=(TextView)findViewById(R.id.puntosPractica);
         PuntosLectura=(TextView)findViewById(R.id.puntosLectura);
         conexion = new dbConexion(this,"dbDisxapp",null,1);
@@ -87,6 +89,18 @@ public class activityPuntaje extends AppCompatActivity {
             MusicaPrincipal.stopAudio();
             Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.regresarPuntaje:
+                MusicaPrincipal.stopAudio();
+                Activity = new Intent(view.getContext(), MainActivity.class);
+                startActivity(Activity);
+                break;
         }
     }
 }
