@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class activityMenuJuegos extends AppCompatActivity  implements View.OnClickListener{
     Intent Activity;
-    TextView opcionOrtografia,opcionOraciones,opcionPalabras,opcionEntendimiento;
+    TextView opcionOrtografia,opcionOraciones,opcionPalabras,opcionEntendimiento,regresarMenuJuegos;
     AudioPlay musicaDeJuego;
     boolean bloqueo;
     @Override
@@ -46,6 +46,9 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
 
 
         musicaDeJuego.playAudio(getApplicationContext(),R.raw.musicadejuego);
+
+        regresarMenuJuegos=(TextView)findViewById(R.id.regresarMenuJuegos);
+        regresarMenuJuegos.setOnClickListener(this);
     }
 
 
@@ -73,7 +76,11 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
                 Activity = new Intent( view.getContext(),activityEntendimiento.class);
                 startActivity(Activity);
                 break;
-
+            case R.id.regresarMenuJuegos:
+                musicaDeJuego.stopAudio();
+                Activity = new Intent(view.getContext(),MainActivity.class);
+                startActivity(Activity);
+                break;
             default:
                 break;
         }

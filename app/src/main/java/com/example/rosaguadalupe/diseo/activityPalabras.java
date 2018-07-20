@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -175,7 +177,7 @@ public class activityPalabras extends AppCompatActivity  implements View.OnClick
     }
     @Override
     public void onBackPressed(){
-        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
+        /*dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
         SQLiteDatabase db = mod.getWritableDatabase();
         Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
         if(puntos.getCount() > 0){
@@ -194,7 +196,7 @@ public class activityPalabras extends AppCompatActivity  implements View.OnClick
             MusicaPrincipal.stopAudio();
            Intent Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);
-        }
+        }*/
     }
 
     public void newGame(){
@@ -205,9 +207,10 @@ public class activityPalabras extends AppCompatActivity  implements View.OnClick
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView EstiloText = (TextView) view;
-                EstiloText.setTextColor(Color.BLACK);
+                EstiloText.setTextColor(0xff6950eb);
                 EstiloText.setText(letraPorLetra.get(position));
                 EstiloText.setGravity(Gravity.CENTER);
+                EstiloText.setTypeface(null, Typeface.BOLD);
                 EstiloText.setTextSize(24);
                 return EstiloText;
             }

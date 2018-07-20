@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +35,7 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
     String[] Oraciones =new String[]{"EL leon es grande", "Diego escribe un poema", "Víctor comió pastel","Jef es muy jugueton","mi mama me ama","las pilas tienen mucha energia"};
     String palabraPresionada;
     ArrayList<String> PalabraPorPalabra = new ArrayList<String>();
+    int posicionesAborrar=0;
     int idOracionRandom,puntaje;
     int vecesJugadas=1;
     Calendar calendar;
@@ -70,6 +73,7 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
         contenedor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                posicionesAborrar+=1;
                 palabraPresionada = adapterView.getItemAtPosition(i).toString();
                 CampoOraciones.setText(CampoOraciones.getText().toString()+" "+palabraPresionada);
                 oracionTerminada();
@@ -145,6 +149,7 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
                                     bd.update("puntajeGeneral",updatePuntuacion,"id =" + puntos.getInt(0),null);
                                     vecesJugadas+=1;
                                     CampoOraciones.setText("");
+                                     posicionesAborrar=0;
                                     newGame();
                                     Toast.makeText(this, "Muy bien! n.n", Toast.LENGTH_SHORT).show();
                             }
@@ -159,7 +164,9 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
             }else{
                 vecesJugadas+=1;
                 CampoOraciones.setText("");
+                posicionesAborrar=0;
                 newGame();
+
                 Toast.makeText(this, "Puedes mejorar n.n!", Toast.LENGTH_SHORT).show();
             }
         }
@@ -171,26 +178,7 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
     }
     @Override
     public void onBackPressed(){
-        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
-        SQLiteDatabase db = mod.getWritableDatabase();
-        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
-        if(puntos.getCount() > 0){
-            puntos.moveToLast();
-            bloqueo = puntos.getInt(1)!=0;
-            if(bloqueo){
-                musicaPrincipal.stopAudio();
-                Intent Activity = new Intent( this,activityBloqueo.class);
-                startActivity(Activity);
-            }else{
-                musicaPrincipal.stopAudio();
-                Intent Activity = new Intent( this,MainActivity.class);
-                startActivity(Activity);
-            }
-        }else{
-            musicaPrincipal.stopAudio();
-            Intent Activity = new Intent( this,MainActivity.class);
-            startActivity(Activity);
-        }
+
     }
     public void newGame(){
         PalabraPorPalabra.clear();
@@ -200,9 +188,10 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView EstiloText = (TextView) view;
-                EstiloText.setTextColor(Color.BLACK);
+                EstiloText.setTextColor(0xff6950eb);
                 EstiloText.setText(PalabraPorPalabra.get(position));
                 EstiloText.setGravity(Gravity.CENTER);
+                EstiloText.setTypeface(null, Typeface.BOLD);
                 EstiloText.setTextSize(20);
                 return EstiloText;
             }
@@ -215,8 +204,15 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
 
             case R.id.flechaRetrocesoOracion:
                 String palabra=  CampoOraciones.getText().toString();
+                String palabraAconcatenar="";
                 if(palabra.length()> 0){
-                    CampoOraciones.setText(palabra.substring(0,palabra.length()-1));
+                    String[] palabras = CampoOraciones.getText().toString().split("\\s+");
+
+                    for (int x=0;x<posicionesAborrar;x++){
+                        palabraAconcatenar += palabras[x]+" ";
+                    }
+                    CampoOraciones.setText(palabraAconcatenar.substring(0,palabraAconcatenar.length()-1));
+                    posicionesAborrar--;
                 }
                 break;
         }

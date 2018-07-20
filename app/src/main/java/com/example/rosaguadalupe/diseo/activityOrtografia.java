@@ -127,25 +127,6 @@ public class activityOrtografia extends AppCompatActivity  implements View.OnCli
     }
     @Override
     public void onBackPressed(){
-        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
-        SQLiteDatabase db = mod.getWritableDatabase();
-        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
-        if(puntos.getCount() > 0){
-            puntos.moveToLast();
-            bloqueo = puntos.getInt(1)!=0;
-            if(bloqueo){
-                musicaPrincipal.stopAudio();
-                Intent Activity = new Intent( this,activityBloqueo.class);
-                startActivity(Activity);
-            }else{
-                musicaPrincipal.stopAudio();
-                Intent Activity = new Intent( this,MainActivity.class);
-                startActivity(Activity);
-            }
-        }else{
-            musicaPrincipal.stopAudio();
-            Intent Activity = new Intent( this,MainActivity.class);
-            startActivity(Activity);
-        }
+
     }
 }

@@ -15,16 +15,17 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class activityDiagnostico extends AppCompatActivity {
+public class activityDiagnostico extends AppCompatActivity implements View.OnClickListener{
     TableLayout tabla;
     TableRow columna;
     TextView fechaDatos;
-    TextView puntajeDatos;
+    TextView puntajeDatos ,regresarDiagnostico;
     boolean bloqueo;
     dbConexion mod;
     SQLiteDatabase db;
     Cursor puntos;
     AudioPlay musicaPrincipal;
+    Intent Activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,8 @@ public class activityDiagnostico extends AppCompatActivity {
                 startActivity(Activity);
             }
         }
-
+        regresarDiagnostico=(TextView)findViewById(R.id.regresarDiagnostico);
+        regresarDiagnostico.setOnClickListener(this);
          mod = new dbConexion(this, "dbDisxapp", null, 1);
         SQLiteDatabase db = mod.getWritableDatabase();
          puntos = db.rawQuery("SELECT  puntos,fecha FROM puntajeGeneral", null);
@@ -95,4 +97,15 @@ public class activityDiagnostico extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.regresarDiagnostico:
+                musicaPrincipal.stopAudio();
+                Activity = new Intent(view.getContext(), MainActivity.class);
+                startActivity(Activity);
+                break;
+        }
+    }
 }
