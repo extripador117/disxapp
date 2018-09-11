@@ -125,8 +125,6 @@ public class activityOrtografia extends AppCompatActivity  implements View.OnCli
         }
 
     }
-    @Override
-    public void onBackPressed(){
 
-    }
+
 }
