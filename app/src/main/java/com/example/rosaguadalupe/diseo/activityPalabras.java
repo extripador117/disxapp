@@ -175,29 +175,6 @@ public class activityPalabras extends AppCompatActivity  implements View.OnClick
             }
         }
     }
-    @Override
-    public void onBackPressed(){
-        /*dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
-        SQLiteDatabase db = mod.getWritableDatabase();
-        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
-        if(puntos.getCount() > 0){
-            puntos.moveToLast();
-            bloqueo = puntos.getInt(1)!=0;
-            if(bloqueo){
-                MusicaPrincipal.stopAudio();
-              Intent  Activity = new Intent( this,activityBloqueo.class);
-                startActivity(Activity);
-            }else{
-                MusicaPrincipal.stopAudio();
-               Intent Activity = new Intent( this,MainActivity.class);
-                startActivity(Activity);
-            }
-        }else{
-            MusicaPrincipal.stopAudio();
-           Intent Activity = new Intent( this,MainActivity.class);
-            startActivity(Activity);
-        }*/
-    }
 
     public void newGame(){
         letraPorLetra.clear();
@@ -228,4 +205,5 @@ public class activityPalabras extends AppCompatActivity  implements View.OnClick
                 break;
         }
     }
+
 }

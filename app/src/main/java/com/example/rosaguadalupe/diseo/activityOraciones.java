@@ -176,10 +176,7 @@ public class activityOraciones extends AppCompatActivity implements View.OnClick
             startActivity(Activity);
         }
     }
-    @Override
-    public void onBackPressed(){
 
-    }
     public void newGame(){
         PalabraPorPalabra.clear();
         idOracionRandom = selectOracionRandom();

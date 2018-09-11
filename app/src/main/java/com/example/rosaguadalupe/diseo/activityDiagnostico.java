@@ -108,4 +108,5 @@ public class activityDiagnostico extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
+
 }

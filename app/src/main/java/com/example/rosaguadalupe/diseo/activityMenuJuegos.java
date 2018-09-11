@@ -45,10 +45,10 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
         opcionEntendimiento.setOnClickListener(this);
 
 
-        musicaDeJuego.playAudio(getApplicationContext(),R.raw.musicadejuego);
-
         regresarMenuJuegos=(TextView)findViewById(R.id.regresarMenuJuegos);
         regresarMenuJuegos.setOnClickListener(this);
+
+        musicaDeJuego.playAudio(getApplicationContext(),R.raw.musicadejuego);
     }
 
 
@@ -110,4 +110,6 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
             startActivity(Activity);
         }
     }
+
+
 }

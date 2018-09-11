@@ -131,8 +131,6 @@ public class activityEntendimiento extends AppCompatActivity  implements View.On
             startActivity(Activity);
         }
     }
-    @Override
-    public void onBackPressed(){
 
-    }
+
 }

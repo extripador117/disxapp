@@ -1,5 +1,6 @@
 package com.example.rosaguadalupe.diseo;
 
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -102,27 +103,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onBackPressed(){
-        dbConexion mod = new dbConexion(this, "dbDisxapp", null, 1);
-        SQLiteDatabase db = mod.getWritableDatabase();
-        Cursor puntos = db.rawQuery("SELECT  * FROM bloqueo", null);
-        if(puntos.getCount() > 0){
-            puntos.moveToLast();
-            bloqueo = puntos.getInt(1)!=0;
-            if(bloqueo){
-                Activity = new Intent( this,activityBloqueo.class);
-                startActivity(Activity);
-            }else{
-                musicaPrincipal.stopAudio();
-                musicaPrincipal.playAudio(this,R.raw.mainsong);
-                Activity = new Intent( this,MainActivity.class);
-                startActivity(Activity);
-            }
-        }else{
-            Activity = new Intent( this,MainActivity.class);
-            startActivity(Activity);
-        }
-    }
+
+
+
+
 }
 
