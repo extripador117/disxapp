@@ -29,8 +29,7 @@ public class activityBloqueo extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_bloqueo);
 
         preguntaBloqueo = (TextView)findViewById(R.id.preguntaBloqueo);
-        musicaDeJuego.stopAudio();
-        musicaDeJuego.playAudio(getApplicationContext(),R.raw.chiptronical);
+
         Random r = new Random();
         palabraRandom = r.nextInt(Pregunta.length-0);
         preguntaBloqueo.setText(Pregunta[palabraRandom]);
@@ -67,7 +66,7 @@ public class activityBloqueo extends AppCompatActivity implements View.OnClickLi
             puntos.moveToLast();
             estadoBloqueo.put("status",0);
             bd.update("bloqueo",estadoBloqueo,"id =" + puntos.getInt(0),null);
-            musicaDeJuego.stopAudio();
+
             Intent Activity = new Intent( this,activityMenuJuegos.class);
             startActivity(Activity);
         }else{

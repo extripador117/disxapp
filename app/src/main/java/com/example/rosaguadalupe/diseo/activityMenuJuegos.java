@@ -48,7 +48,7 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
         regresarMenuJuegos=(TextView)findViewById(R.id.regresarMenuJuegos);
         regresarMenuJuegos.setOnClickListener(this);
 
-        musicaDeJuego.playAudio(getApplicationContext(),R.raw.musicadejuego);
+
     }
 
 
@@ -77,7 +77,7 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
                 startActivity(Activity);
                 break;
             case R.id.regresarMenuJuegos:
-                musicaDeJuego.stopAudio();
+
                 Activity = new Intent(view.getContext(),MainActivity.class);
                 startActivity(Activity);
                 break;
@@ -94,17 +94,17 @@ public class activityMenuJuegos extends AppCompatActivity  implements View.OnCli
             puntos.moveToLast();
             bloqueo = puntos.getInt(1)!=0;
             if(bloqueo){
-                musicaDeJuego.stopAudio();
+
                 Activity = new Intent( this,activityBloqueo.class);
                 startActivity(Activity);
             }else{
-                musicaDeJuego.stopAudio();
+
 
                 Activity = new Intent( this,MainActivity.class);
                 startActivity(Activity);
             }
         }else{
-            musicaDeJuego.stopAudio();
+
 
             Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);

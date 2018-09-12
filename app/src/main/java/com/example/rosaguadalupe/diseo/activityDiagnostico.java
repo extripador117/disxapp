@@ -82,16 +82,16 @@ public class activityDiagnostico extends AppCompatActivity implements View.OnCli
             puntos.moveToLast();
             bloqueo = puntos.getInt(1)!=0;
             if(bloqueo){
-                musicaPrincipal.stopAudio();
+
                Intent Activity = new Intent( this,activityBloqueo.class);
                 startActivity(Activity);
             }else{
-                musicaPrincipal.stopAudio();
+
                 Intent Activity = new Intent( this,MainActivity.class);
                 startActivity(Activity);
             }
         }else{
-            musicaPrincipal.stopAudio();
+
             Intent Activity = new Intent( this,MainActivity.class);
             startActivity(Activity);
         }

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sabiasQue=(ImageView)findViewById(R.id.sabiasQue);
         sabiasQue.setOnClickListener(this);
 
-        musicaPrincipal.playAudio(this,R.raw.mainsong);
+
 
 
     }
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.juegos:
                 Activity = new Intent( view.getContext(),activityMenuJuegos.class);
                 startActivity(Activity);
-                musicaPrincipal.stopAudio();
+
                 break;
 
             case R.id.puntaje:
