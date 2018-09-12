@@ -41,8 +41,7 @@ public class activityPuntajeActualHombre extends AppCompatActivity implements Vi
         db = mod.getWritableDatabase();
         puntos = db.rawQuery("SELECT  puntos FROM puntajePractica", null);
 
-        musicaDePuntaje.stopAudio();
-        musicaDePuntaje.playAudio(getApplicationContext(),R.raw.chiptronical);
+
         if (puntos.moveToLast()) {
             puntajeHombre.setText(puntos.getString(0));
         }
